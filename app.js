@@ -1,21 +1,21 @@
-const http = require("http");
+const express = require("express");
+const app=express();
 
-const server = http.createServer((req,res)=>{
-    console.log("Method:", req.method);
-    console.log("URL:", req.url);
-    res.end("Hello from my backend");
+app.use(express.text());
 
-    if(req.method === "GET" && req.url === "/"){
-        res.end("Welcome to URL shortener");
-    }
-    else if(req.method === "POST" && req.url === "/shorten"){
-        res.end("Create short url");
-    }
-    else{
-        res.end("ROute not found");
-    }
+app.get("/",(req,res)=>{
+    res.send("Welcome to URL shortener");
 });
 
-server.listen(3000,()=>{
-    console.log("Server is running on port 3000");
+app.post("/shorten",(req,res)=>{
+     console.log(req.body);
+     res.send("URL received");
+});
+
+app.use((req,res)=>{
+    res.send("Route not found");
+});
+
+app.listen(3000,()=>{
+    console.log("server is running on port 3000");
 });
