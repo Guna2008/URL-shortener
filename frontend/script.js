@@ -1,5 +1,7 @@
 const form = document.getElementById("url-form");
 const input = document.getElementById("long-url");
+const result = document.getElementById("result");
+
 form.addEventListener("submit",async(event)=>{
     event.preventDefault();
     const longUrl = input.value;
@@ -12,5 +14,6 @@ form.addEventListener("submit",async(event)=>{
         url: longUrl
         })   
     });
-    console.log(longUrl);
+    const data = await response.json();
+    result.innerHTML = `<a href="${data.shortUrl}">${data.shortUrl}</a>`
 });
